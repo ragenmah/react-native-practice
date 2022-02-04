@@ -13,8 +13,8 @@ import {Button, ButtonGroup, withTheme} from 'react-native-elements';
 const Calculator = () => {
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
-  const [symbol,setSymbol]=useState("+");
-  const [result, setResult] = useState("Result");
+  const [symbol, setSymbol] = useState('+');
+  const [result, setResult] = useState('Result');
   return (
     <View style={styles.container}>
       <Image
@@ -42,20 +42,21 @@ const Calculator = () => {
             keyboardType="phone-pad"
             onChangeText={text => setNum2(text)}
           />
-          <Text style={styles.signText}>= {symbol=="/"? result.toFixed(2):result}</Text>
-          
+          <Text style={styles.signText}>
+            = {symbol == '/' ? result.toFixed(2) : result}
+          </Text>
         </View>
         <View style={styles.btnContainer}>
           <Button
             title="Add"
             color="#841584"
-            onPress={() => {              
+            onPress={() => {
               if (num1 == 0 || num2 == 0) {
                 Alert.alert(`Enter numbers to calculate`);
                 return;
               }
-              setResult(parseInt(num1)  + parseInt(num2));
-              setSymbol("+");              
+              setResult(parseInt(num1) + parseInt(num2));
+              setSymbol('+');
             }}
             containerStyle={styles.btnContainerStyle}
             titleStyle={{fontWeight: 'bold'}}
@@ -66,13 +67,13 @@ const Calculator = () => {
             color="#841584"
             containerStyle={styles.btnContainerStyle}
             buttonStyle={styles.btnStyle}
-            onPress={() => {             
+            onPress={() => {
               if (num1 == 0 || num2 == 0) {
                 Alert.alert(`Enter numbers to calculate`);
                 return;
               }
               setResult(num1 - num2);
-              setSymbol("-");
+              setSymbol('-');
             }}
           />
           <Button
@@ -80,13 +81,13 @@ const Calculator = () => {
             color="#841584"
             containerStyle={styles.btnContainerStyle}
             buttonStyle={styles.btnStyle}
-            onPress={() => {              
+            onPress={() => {
               if (num1 == 0 || num2 == 0) {
                 Alert.alert(`Enter numbers to calculate`);
                 return;
               }
-              setResult(num1 * num2);              
-              setSymbol("x");
+              setResult(num1 * num2);
+              setSymbol('x');
             }}
           />
           <Button
@@ -94,13 +95,13 @@ const Calculator = () => {
             color="#841584"
             containerStyle={styles.btnContainerStyle}
             buttonStyle={styles.btnStyle}
-            onPress={() => {             
+            onPress={() => {
               if (num1 == 0 || num2 == 0) {
                 Alert.alert(`Enter numbers to calculate`);
                 return;
               }
               setResult(num1 / num2);
-              setSymbol("/");
+              setSymbol('/');
             }}
           />
         </View>
