@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {View, Text, TextInput, Image, StyleSheet, Alert} from 'react-native';
+import {View, Text, TextInput, Image, StyleSheet} from 'react-native';
 import {Button} from 'react-native-elements';
 
 const Calculator = () => {
@@ -11,15 +11,6 @@ const Calculator = () => {
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
-    if (num1 === 0 || num2 === 0 || isNaN(num1) || isNaN(num2)) {
-      if (num1 === 0 && num2 === 0) {
-        Alert.alert(`Both inputs are zeros`);
-        return;
-      }
-      Alert.alert(`Enter numbers to calculate`);
-      return;
-    }
-
     switch (symbol) {
       case '+':
         setResult(num1 + num2);
@@ -75,8 +66,10 @@ const Calculator = () => {
             = {symbol == '/' ? Number(result).toFixed(2) : result}
           </Text>
         </View>
-        
+
         <Text style={styles.headingText}>
+          {num1 === 0 && num2 === 0 ? 'Both inputs are zeros' : null}
+
           {result === 0
             ? null
             : result > 0
