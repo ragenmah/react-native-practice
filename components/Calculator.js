@@ -1,20 +1,34 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  Alert,
-} from 'react-native';
-import {Button, ButtonGroup, withTheme} from 'react-native-elements';
+import {View, Text, TextInput, Image, StyleSheet} from 'react-native';
+import {Button} from 'react-native-elements';
+
 const Calculator = () => {
-  const [num1, setNum1] = useState(0);
+  const [num1, setNum1] = useState('');
   const [num2, setNum2] = useState(0);
-  const [symbol, setSymbol] = useState('+');
+  const [symbol, setSymbol] = useState('#');
   const [result, setResult] = useState('Result');
+  const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    switch (symbol) {
+      case '+':
+        setResult(num1 + num2);
+        return;
+      case '-':
+        setResult(num1 - num2);
+        return;
+      case 'x':
+        setResult(num1 * num2);
+        return;
+      case '/':
+        setResult(num1 / num2);
+        return;
+      default:
+        return;
+    }
+  }, [toggle]);
+
   return (
     <View style={styles.container}>
       <Image
@@ -23,85 +37,89 @@ const Calculator = () => {
           uri: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Casio_calculator_JS-20WK_in_201901_002.jpg',
         }}
       />
+
       <Text style={styles.title}>Simple Calculator</Text>
+
       <View style={styles.calcContainer}>
         <Text style={styles.headingText}>Enter any two numbers</Text>
+
         <View style={styles.inputFields}>
           <TextInput
             style={styles.input}
             placeholder="Number 1"
             placeholderTextColor="#9a73ef"
             keyboardType="phone-pad"
-            onChangeText={text => setNum1(text)}
+            onChangeText={text => setNum1(parseInt(text))}
           />
+
           <Text style={styles.signText}>{symbol}</Text>
+
           <TextInput
             style={styles.input}
             placeholder="Number 2"
             placeholderTextColor="#9a73ef"
             keyboardType="phone-pad"
-            onChangeText={text => setNum2(text)}
+            onChangeText={text => setNum2(parseInt(text))}
           />
+
           <Text style={styles.signText}>
-            = {symbol == '/' ? result.toFixed(2) : result}
+            = {symbol == '/' ? Number(result).toFixed(2) : result}
           </Text>
         </View>
+
+        <Text style={styles.headingText}>
+          {num1 === 0 && num2 === 0 ? 'Both inputs are zeros' : null}
+
+          {result === 0
+            ? null
+            : result > 0
+            ? `The calculation is positive`
+            : `The calculation is negetive`}
+        </Text>
+
         <View style={styles.btnContainer}>
           <Button
             title="Add"
             color="#841584"
-            onPress={() => {
-              if (num1 == 0 || num2 == 0) {
-                Alert.alert(`Enter numbers to calculate`);
-                return;
-              }
-              setResult(parseInt(num1) + parseInt(num2));
-              setSymbol('+');
-            }}
             containerStyle={styles.btnContainerStyle}
             titleStyle={{fontWeight: 'bold'}}
             buttonStyle={styles.btnStyle}
+            onPress={() => {
+              setSymbol('+');
+              setToggle(!toggle);
+            }}
           />
+
           <Button
             title="Subtract"
             color="#841584"
             containerStyle={styles.btnContainerStyle}
             buttonStyle={styles.btnStyle}
             onPress={() => {
-              if (num1 == 0 || num2 == 0) {
-                Alert.alert(`Enter numbers to calculate`);
-                return;
-              }
-              setResult(num1 - num2);
               setSymbol('-');
+              setToggle(!toggle);
             }}
           />
+
           <Button
             title="Multiply"
             color="#841584"
             containerStyle={styles.btnContainerStyle}
             buttonStyle={styles.btnStyle}
             onPress={() => {
-              if (num1 == 0 || num2 == 0) {
-                Alert.alert(`Enter numbers to calculate`);
-                return;
-              }
-              setResult(num1 * num2);
               setSymbol('x');
+              setToggle(!toggle);
             }}
           />
+
           <Button
             title="Divide"
             color="#841584"
             containerStyle={styles.btnContainerStyle}
             buttonStyle={styles.btnStyle}
             onPress={() => {
-              if (num1 == 0 || num2 == 0) {
-                Alert.alert(`Enter numbers to calculate`);
-                return;
-              }
-              setResult(num1 / num2);
               setSymbol('/');
+              setToggle(!toggle);
             }}
           />
         </View>
@@ -112,7 +130,6 @@ const Calculator = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2E3B55',
   },
