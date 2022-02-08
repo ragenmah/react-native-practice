@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-elements';
 
-import {Images,CommonStyles} from './constants/Index';
-import {CustomButton} from './components/Index';
+import {Images,CommonStyles} from './constants/index';
+import {CustomButton} from './components/index';
 
 const Calculator = () => {
   const [num1, setNum1] = useState('');
