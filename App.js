@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import Calculator from './components/Calculator';
+import Calculator from './src/Calculator';
 
 const App = () => {
   return (
