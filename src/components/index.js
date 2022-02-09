@@ -1,3 +1,5 @@
-import CustomButton from "./CustomButton";
+import CustomButton from './CustomButton';
+import CustomScrollView from './CustomScrollView';
+import CustomFlatList from './CustomFlatList';
 
-export {CustomButton}
+export {CustomButton, CustomScrollView, CustomFlatList};

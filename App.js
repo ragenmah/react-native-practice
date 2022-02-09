@@ -1,10 +1,10 @@
 import React from 'react';
+
 import Calculator from './src/Calculator';
+import ScrollViewApp from './src/ScrollViewApp';
 
 const App = () => {
-  return (
-    <Calculator/>
-  );
+  return <ScrollViewApp />;
 };
 
 export default App;
