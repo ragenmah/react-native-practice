@@ -6,55 +6,17 @@ import CustomButton from './CustomButton';
 import {CommonStyles, Images} from '../constants';
 
 const CustomFlatList = ({formPData}) => {
-  const [users, setUsers] = useState([
-    // {
-    //   firstName: formPData.firstName,
-    //   lastName: formPData.firstName,
-    //   email: 'sodip@gmail.com',
-    //   age: '22',
-    // },
-    // {
-    //   firstName: 'John',
-    //   lastName: 'Doe',
-    //   email: 'example@email.com',
-    //   age: '22',
-    // },
-    // {
-    //   firstName: 'Jane',
-    //   lastName: 'Doe',
-    //   email: 'example@email.com',
-    //   age: '22',
-    // },
-  ]);
+  const [users, setUsers] = useState(formPData);
+
+  useEffect(() => {
+    setUsers(formPData);
+  }, [formPData]);
 
   const clearAllUsers = () => {
-    
-    
     setUsers([]);
+    formPData.splice(0, formPData.length);
   };
 
- 
-  console.log('Form P ', formPData);
-
-  formPData.length != 0 
-    ? // ? console.log('HELLO')
-      // : console.log('null');
-      // setUsers(previousValue => [
-      //   ...previousValue,
-      //   {
-      //     firstName: formPData.firstName,
-      //     lastName: formPData.firstName,
-      //     email: 'sodip@gmail.com',
-      //     age: '22',
-      //   },
-      //   users.push(formPData)
-      // ])
-
-      // setUsers(previousValue=>({...previousValue,formPData}))
-      users.push(previousValue=>({...previousValue,formPData}))
-    : console.log('null');
-
-  // console.log('Form users push', users);
   const renderItem = ({item}) => {
     return (
       <View style={[STYLE.listItem, CommonStyles.flexRow]}>

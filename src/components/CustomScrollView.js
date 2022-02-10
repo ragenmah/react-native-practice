@@ -9,11 +9,10 @@ const CustomScrollView = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
-  // var firstName,
-  //   lastName,
-  //   email,
-  //   age = '';
+
+  // var formData ;
   const [formData, setFormData] = useState('');
+
   return (
     <View style={CommonStyles.displayColumn}>
       <ScrollView style={CommonStyles.dFlex}>
@@ -61,22 +60,23 @@ const CustomScrollView = () => {
           <CustomButton
             onPress={() => {
               if (firstName != '' && lastName != '' && email != '' && age != '')
-                setFormData({
-                  firstName: firstName,
-                  lastName: lastName,
-                  email: email,
-                  age: age,
-                });
+                setFormData(arr => [
+                  ...arr,
+                  {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    age: age,
+                  },
+                ]);
               else {
-                Alert.alert('All fields are required');
+                // Alert.alert('All fields are required');
               }
               // clearFormInputs
-              setFirstName('');
-              setLastName('');
-              setEmail('');
-              setAge('');
-
-              // console.log("hello", formData)
+              // setFirstName('');
+              // setLastName('');
+              // setEmail('');
+              // setAge('');
             }}
             title="Submit"
           />
