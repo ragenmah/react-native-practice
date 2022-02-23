@@ -12,6 +12,10 @@ target 'milestone1' do
     :hermes_enabled => false
   )
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
+
   target 'milestone1Tests' do
     inherit! :complete
     # Pods for testing
