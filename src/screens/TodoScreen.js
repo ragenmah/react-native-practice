@@ -9,7 +9,7 @@ const TodoScreen = () => {
       <Text style={styles.text}>ToDo</Text>
         <View style={styles.fill}>
         <TodoList />
-        <ListItem/>
+        
         <TodoInput/>
         </View>
     </>
