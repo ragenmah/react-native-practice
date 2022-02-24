@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import taskContext from '../../context/taskContext';
 
 const TodoListItem = () => {
-  const [isSelected, setSelection] = useState(false);
-
+  // const [isSelected, setSelection] = useState(false);
+var isSelected=false;
   const taskContexts = useContext(taskContext);
   return (
     <FlatList
@@ -17,8 +17,14 @@ const TodoListItem = () => {
           <View style={styles.container}>
             <View style={styles.checkboxContainer}>
               <CheckBox
+                // disabled={false}
+                onCheckColor={'#fff'}
+                tintColors={{ true: '#fff', false: '#fff' }}
                 value={isSelected}
-                onValueChange={taskContexts.isDoneTasks(index)}
+                // 
+                onValueChange={()=>{isSelected=!isSelected
+                  taskContexts.isDoneTasks(index)
+                } }
                 style={styles.checkbox}
               />
               <Text style={styles.label}>{item}</Text>

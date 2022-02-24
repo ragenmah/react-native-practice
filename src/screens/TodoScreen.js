@@ -10,7 +10,7 @@ const TodoScreen = () => {
         <View style={styles.fill}>
         <TodoList />
         
-        <TodoInput/>
+        {/* <TodoInput/> */}
         </View>
     </>
   );
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   fill:{
     //   display:'flex',
-      flex:1
-
+      flex:1,
+      flexDirection:'column'
   }
 });

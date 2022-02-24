@@ -1,12 +1,14 @@
 import React from 'react'
 
 import {StyleSheet,Text, View} from 'react-native';
+import TodoInput from './TodoInput';
 import TodoListItem from './TodoListItem';
 const TodoList = () => {
   return (
     <View style={styles.list}>
         {/* <Text>HELLO</Text> */}
         <TodoListItem/>
+        <TodoInput/>
     </View>
   )
 }
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
         backgroundColor:"black",
         height:"100%",
         width:"100%",
-        position:'absolute',
+        // position:'absolute',
         color:"white"
         
     }

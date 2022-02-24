@@ -7,41 +7,43 @@ import doneContext from '../context/doneContext';
 import taskContext from '../context/taskContext';
 
 const TodoDoneScreen = () => {
-  const [isSelected, setSelection] = useState(false);
   const doneTaskContext = useContext(doneContext);
   const taskContexts = useContext(taskContext);
 
+  var isSelected = true;
   return (
     <View style={styles.wholeContainer}>
       <Text style={styles.text}>ToDo</Text>
       <FlatList
-      data={doneTaskContext.tasksDone}
-      keyExtractor={(_, index) => index.toString()}
-      renderItem={({item, index}) => {
-        return (
-          <View style={styles.container}>
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={
-                  // doneTaskContext.deleteTask(index)
-                  doneTaskContext.isDoneTasks(index)}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>{item}</Text>
-            </View>
+        data={doneTaskContext.tasksDone}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({item, index}) => {
+          return (
+            <View style={styles.container}>
+              <View style={styles.checkboxContainer}>
+                <CheckBox
+                  value={isSelected}
+                  tintColors={{true: '#fff'}}
+                  onValueChange={() => {
+                    isSelected = !isSelected;
+                    doneTaskContext.deleteDoneTask(index);
+                  }}
+                  style={styles.checkbox}
+                />
+                <Text style={styles.label}>{item}</Text>
+              </View>
 
-            <TouchableOpacity
-              onPress={() => {
-                doneTaskContext.deleteDoneTask(index);
-              }}
-              style={styles.icon}>
-              <Icon name="delete" color="#fff" size={30} />
-            </TouchableOpacity>
-          </View>
-        );
-      }}
-    />
+              <TouchableOpacity
+                onPress={() => {
+                  doneTaskContext.deleteDoneTask(index);
+                }}
+                style={styles.icon}>
+                <Icon name="delete" color="#fff" size={30} />
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      />
     </View>
   );
 };
@@ -78,10 +80,10 @@ const styles = StyleSheet.create({
   icon: {
     backgroundColor: '#918d8d',
   },
-  text:{
-    fontSize:20,
-    backgroundColor:"#3d3c3c",
-    color:"#ffffff",
-    padding:10
-},
+  text: {
+    fontSize: 20,
+    backgroundColor: '#3d3c3c',
+    color: '#ffffff',
+    padding: 10,
+  },
 });
