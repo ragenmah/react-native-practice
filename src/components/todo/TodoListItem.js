@@ -1,26 +1,40 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import taskContext from '../../context/taskContext';
 
 const TodoListItem = () => {
   const [isSelected, setSelection] = useState(false);
 
+  const taskContexts = useContext(taskContext);
   return (
-    <View style={styles.container}>
-      <View style={styles.checkboxContainer}>
-        <CheckBox
-          value={isSelected}
-          onValueChange={setSelection}
-          style={styles.checkbox}
-        />
-        <Text style={styles.label}>Do you like React Native?</Text>
-      </View>
-      
-      <TouchableOpacity onPress={() => {}} style={styles.icon}>
-        <Icon name="delete" color="#fff" size={30} />
-      </TouchableOpacity>
-    </View>
+    <FlatList
+      data={taskContexts.tasks}
+      keyExtractor={(_, index) => index.toString()}
+      renderItem={({item, index}) => {
+        return (
+          <View style={styles.container}>
+            <View style={styles.checkboxContainer}>
+              <CheckBox
+                value={isSelected}
+                onValueChange={taskContexts.isDoneTasks(index)}
+                style={styles.checkbox}
+              />
+              <Text style={styles.label}>{item}</Text>
+            </View>
+
+            <TouchableOpacity
+              onPress={() => {
+                taskContexts.deleteTask(index);
+              }}
+              style={styles.icon}>
+              <Icon name="delete" color="#fff" size={30} />
+            </TouchableOpacity>
+          </View>
+        );
+      }}
+    />
   );
 };
 
@@ -41,15 +55,13 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: 'row',
     // marginBottom: 20,
-    
   },
   checkbox: {
     alignSelf: 'center',
-    
   },
   label: {
     margin: 8,
-    color:"#fff"
+    color: '#fff',
   },
   icon: {
     backgroundColor: '#918d8d',

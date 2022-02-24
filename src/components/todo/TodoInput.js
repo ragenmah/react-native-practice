@@ -1,24 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useState } from 'react';
 import {TouchableOpacity} from 'react-native';
 import {StyleSheet, TextInput, View} from 'react-native';
 import {color} from 'react-native-elements/dist/helpers';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CommonStyles} from '../../constants';
+import taskContext from '../../context/taskContext';
+
+
 const TodoInput = () => {
+  const [task, setTask] = useState('');
+ 
+  const taskContexts = useContext(taskContext);
   return (
     <View style={styles.inputContainer}>
       <TextInput
-        placeholder="Last Name"
+        placeholder="Add new task"
         style={styles.input}
         placeholderTextColor="#fff"
-        // onChangeText={text => {
-        //   setLastName(text);
-        // }}
+        onChangeText={text => {
+          setTask(text);
+        }}
         // value={""}
         maxLength={43}
       />
-      <TouchableOpacity onPress={() => {}} style={styles.roundButton}>
+      <TouchableOpacity onPress={() => {taskContexts.addNewTask(task)
+      
+      }} style={styles.roundButton}>
         <Icon name="plus-thick" color={color} size={22} />
       </TouchableOpacity>
     </View>
