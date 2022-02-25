@@ -6,7 +6,7 @@ const DataProvider = props => {
   const doneTaskContext = useContext(doneContext);
 
   const [tasks, setTask] = useState([]);
-    const [doneTasks, setDoneTask] = useState([]);
+  const [doneTasks, setDoneTask] = useState([]);
   //  var  doneTasks=[]
   const addNewTask = task => {
     if (task != '') {
@@ -23,18 +23,26 @@ const DataProvider = props => {
   };
 
   const isDoneTasks = taskId => {
-      const removedtask = tasks.splice(taskId, 1);
-      const donelist = arry => [...arry, removedtask];
-      doneTaskContext.tasksDone = donelist;
-      setDoneTask(donelist)
+    const removedtask = tasks.splice(taskId, 1);
+    const donelist = arry => [...arry, removedtask];
+    doneTaskContext.tasksDone = donelist;
+    setDoneTask(donelist);
   };
 
   const deleteDoneTask = taskId => {
-    console.log("task id",taskId);
-    // var doneTasks1= doneTaskContext.tasksDone ;        
+    console.log('task id', taskId);
+    // var doneTasks1= doneTaskContext.tasksDone ;
     const removedtask = doneTasks.splice(taskId, 1);
-    const filteredTask = doneTasks.filter((doneTasks, index) => doneTasks !== taskId);
+    const filteredTask = doneTasks.filter(
+      (doneTasks, index) => doneTasks !== taskId,
+    );
     setDoneTask(filteredTask);
+  };
+
+  const isCheckedDoneTask = taskId => {
+    const removedtask = doneTasks.splice(taskId, 1);
+    const donelist = arry => [...arry, removedtask];
+    setTask(donelist);
   };
 
   return (
@@ -50,6 +58,7 @@ const DataProvider = props => {
         value={{
           tasksDone: doneTasks,
           deleteDoneTask: deleteDoneTask,
+          isChecked:isCheckedDoneTask
         }}>
         {props.children}
       </doneContext.Provider>

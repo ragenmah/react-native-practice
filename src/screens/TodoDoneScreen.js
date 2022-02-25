@@ -26,7 +26,7 @@ const TodoDoneScreen = () => {
                   tintColors={{true: '#fff'}}
                   onValueChange={() => {
                     isSelected = !isSelected;
-                    doneTaskContext.deleteDoneTask(index);
+                    doneTaskContext.isChecked(index);
                   }}
                   style={styles.checkbox}
                 />

@@ -4,7 +4,7 @@ const doneContext =
    React.createContext({
     tasksDone: [],
     deleteDoneTask: taskId => {},
-    // isDoneTasks:taskId => {},
+    isChecked:taskId => {},
   });
 
 
