@@ -1,3 +1,3 @@
-import TodoScreen from "./TodoScreen"
+import CounterScreen from "./CounterScreen"
 
-export {TodoScreen} 
+export {CounterScreen} 

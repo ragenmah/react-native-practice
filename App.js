@@ -1,20 +1,14 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-
-import Calculator from './src/Calculator';
-import ScrollViewApp from './src/ScrollViewApp';
-import {TodoScreen} from './src/screens';
-import MainNav from './src/routes/MainNav';
-import DataProvider from './src/DataProvider';
+import { Provider } from 'react-redux';
+import CounterApp from './src/CounterApp';
+import store from './src/redux/store';
+import { CounterScreen } from './src/screens';
 
 const App = () => {
-  return (
-    <DataProvider>
-      <NavigationContainer>
-        <MainNav />
-      </NavigationContainer>
-    </DataProvider>
-  );
+  // return <CounterApp />;
+  return <Provider store={store}>
+  <CounterScreen />
+</Provider>
 };
 
 export default App;
