@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {increaseNumber, decreaseNumber} from '../redux/actions/counterActions';
-// import store from '../redux/store';
 
 const CounterScreen = () => {
   const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const CounterScreen = () => {
           style={styles.roundButton}>
           <Icon name="plus-thick" color={'#000'} size={22} />
         </TouchableOpacity>
-        <Text style={styles.text}>0</Text>
+        <Text style={styles.text}>{counterReducers.countValue}</Text>
         <TouchableOpacity
           onPress={decreaseBtnClicked}
           style={styles.roundButton}>
