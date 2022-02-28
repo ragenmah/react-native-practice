@@ -1,10 +1,14 @@
 import React from 'react';
-import Calculator from './src/Calculator';
+import { Provider } from 'react-redux';
+import CounterApp from './src/CounterApp';
+import store from './src/redux/store';
+import { CounterScreen } from './src/screens';
 
 const App = () => {
-  return (
-    <Calculator/>
-  );
+  // return <CounterApp />;
+  return <Provider store={store}>
+  <CounterScreen />
+</Provider>
 };
 
 export default App;
