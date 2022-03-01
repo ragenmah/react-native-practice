@@ -1,18 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {TodoScreen} from '../screens';
-import {CustomFlatList} from '../components';
-import TodoDoneScreen from '../screens/TodoDoneScreen';
-import taskContext from '../context/taskContext';
-import doneContext from '../context/doneContext';
+import { TodoDoneScreen, TodoScreen } from '../screens';
+import { useSelector } from 'react-redux';
+
 
 const Tab = createBottomTabNavigator();
 
-function MainNav() {
-  const taskContexts = useContext(taskContext);
-
-  const taskDoneContexts = useContext(doneContext);
+const MainNav=() =>{
+  const {todoReducers} = useSelector(state => state);
+ 
   return (
     <Tab.Navigator
       initialRouteName="ToDO"
@@ -32,7 +29,7 @@ function MainNav() {
           tabBarIcon: ({color}) => (
             <Icon name="checkbox-marked-circle-outline" color={color} size={26} />
           ),
-          tabBarBadge: taskContexts.tasks.length,
+          tabBarBadge: todoReducers.newTodo.length,
           tabBarBadgeStyle: { backgroundColor: 'grey',color:"#ffffff" }
         }}
       />
@@ -45,7 +42,7 @@ function MainNav() {
           tabBarIcon: ({color, size}) => (
             <Icon name="check-all" color={color} size={26} />
           ),
-          tabBarBadge: taskDoneContexts.tasksDone.length,
+          tabBarBadge:  todoReducers.doneTodo.length,
           tabBarBadgeStyle: { backgroundColor: 'grey',color:"#ffffff" }
         }}
       />

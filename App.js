@@ -1,14 +1,21 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import { Provider } from 'react-redux';
-import CounterApp from './src/CounterApp';
-import store from './src/redux/store';
-import { CounterScreen } from './src/screens';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import store, {persistor} from './src/redux/store';
+
+import MainNav from './src/routes/MainNav';
 
 const App = () => {
-  // return <CounterApp />;
-  return <Provider store={store}>
-  <CounterScreen />
-</Provider>
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <MainNav />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
+  );
 };
 
 export default App;
