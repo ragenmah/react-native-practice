@@ -7,7 +7,6 @@ import todoReducers from "./todoReducers";
 const persistConfig = {
   key: 'root',
   storage:AsyncStorage,
-  whitelist: ['todo']
 };
 
 const rootReducer = combineReducers({

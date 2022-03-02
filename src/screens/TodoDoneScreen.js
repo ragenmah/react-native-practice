@@ -13,38 +13,41 @@ const TodoDoneScreen = () => {
   const deleteTodoBtnClicked = doneId => dispatch(deleteDoneTodo(doneId));
 
   var isSelected = true;
+
+  const renderItem = ({item, index}) => {
+    return (
+      <View style={styles.container}>
+        <View style={styles.checkboxContainer}>
+          <CheckBox
+            value={isSelected}
+            tintColors={{true: '#fff'}}
+            onValueChange={() => {
+              isSelected = !isSelected;
+              doneTodoBtnClicked(index, isSelected);
+            }}
+            style={styles.checkbox}
+          />
+          <Text style={styles.label}>{item}</Text>
+        </View>
+
+        <TouchableOpacity
+          onPress={() => {
+            deleteTodoBtnClicked(index);
+          }}
+          style={styles.icon}>
+          <Icon name="delete" color="#fff" size={30} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.wholeContainer}>
       <Text style={styles.text}>ToDo</Text>
       <FlatList
-        data={todoReducers.doneTodo}
+        data={todoReducers.doneTodo || []}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({item, index}) => {
-          return (
-            <View style={styles.container}>
-              <View style={styles.checkboxContainer}>
-                <CheckBox
-                  value={isSelected}
-                  tintColors={{true: '#fff'}}
-                  onValueChange={() => {
-                    isSelected = !isSelected;
-                    doneTodoBtnClicked(index, isSelected);
-                  }}
-                  style={styles.checkbox}
-                />
-                <Text style={styles.label}>{item}</Text>
-              </View>
-
-              <TouchableOpacity
-                onPress={() => {
-                  deleteTodoBtnClicked(index);
-                }}
-                style={styles.icon}>
-                <Icon name="delete" color="#fff" size={30} />
-              </TouchableOpacity>
-            </View>
-          );
-        }}
+        renderItem={renderItem}
       />
     </View>
   );

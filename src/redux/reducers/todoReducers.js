@@ -26,8 +26,8 @@ export default (state = initialState, action) => {
     }
     case CHECK_DONE_TODO: {
       var checkNewTodo =
-        action.payload.isChecked == true ? state.newTodo : state.doneTodo;
-      if (action.payload.isChecked == true)
+        action.payload.isChecked === true ? state.newTodo : state.doneTodo;
+      if (action.payload.isChecked === true)
         return {
           ...state,
           newTodo: state.newTodo.filter(
@@ -45,7 +45,7 @@ export default (state = initialState, action) => {
             ...state.newTodo,
             checkNewTodo.splice(action.payload.data, 1),
           ],
-          doneTodo: state.newTodo.filter(
+          doneTodo: state.doneTodo.filter(
             (todo, index) => index !== action.payload.data,
           ),
         };

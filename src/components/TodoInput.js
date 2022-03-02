@@ -4,21 +4,20 @@ import {TouchableOpacity} from 'react-native';
 import {StyleSheet, TextInput, View, Text, Keyboard} from 'react-native';
 import {color} from 'react-native-elements/dist/helpers';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useDispatch} from 'react-redux';
-import {addTodo} from '../redux/actions/todoActions';
 
-const TodoInput = () => {
+const TodoInput = ({addTodoBtnClicked}) => {
   const [task, setTask] = useState('');
   const [usedCharacters, setUsed] = useState(0);
-  const dispatch = useDispatch();
-  const addTodoBtnClicked = (todo) => dispatch(addTodo(todo));
 
   const addAtask = () => {
     Keyboard.dismiss();
-    setUsed(0);
-    setTask('');
-    addTodoBtnClicked(task);
+    if (task != '') {
+      setUsed(0);
+      setTask('');
+      addTodoBtnClicked(task);
+    }
   };
+
   return (
     <View style={styles.inputContainer}>
       <TextInput
