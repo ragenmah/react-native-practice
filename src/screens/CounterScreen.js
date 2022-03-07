@@ -22,7 +22,7 @@ const CounterScreen = () => {
           style={styles.roundButton}>
           <Icon name="plus-thick" color={'#000'} size={22} />
         </TouchableOpacity>
-        <Text style={styles.text}>0</Text>
+        <Text style={styles.text}>{counterReducers.countValue}</Text>
         <TouchableOpacity
           onPress={decreaseBtnClicked}
           style={styles.roundButton}>
