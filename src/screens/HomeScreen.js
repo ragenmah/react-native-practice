@@ -6,8 +6,8 @@ import ProjectsScreen from '../screens/ProjectsScreen';
 const HomeScreen = ({ navigation }) => {
   return (<SafeAreaView style={styles.container}>
     <View style={styles.header}>
-      <Text style={styles.heading}>Hello Welcome!</Text>
-      <Text style={styles.heading}>Select projects</Text>
+      <Text style={styles.heading}>Hello there! Welcome</Text>
+      <Text style={styles.heading}>Select the projects</Text>
     </View>
     <ProjectsScreen navigation={navigation}/>
   </SafeAreaView>

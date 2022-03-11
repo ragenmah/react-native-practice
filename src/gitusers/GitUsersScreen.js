@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   Text,
@@ -14,7 +15,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GitUsersCard from './GitUsersCard';
 
-const GitUsersScreen = () => {
+const GitUsersScreen = ({navigation}) => {
   const [username, setName] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
@@ -23,9 +24,9 @@ const GitUsersScreen = () => {
     Keyboard.dismiss();
     setLoading(true);
     try {
-      const response = await fetch(`https://api.github.com/users/` + username);
-      const json = await response.json();
-      setUsers(json);
+      const response = await axios.get(`https://api.github.com/users/` + username);
+      // const json = await response.json();
+      setUsers(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -68,7 +69,7 @@ const GitUsersScreen = () => {
         {isLoading ? (
           <ActivityIndicator />
         ) : users != '' ? (
-          <GitUsersCard users={users} />
+          <GitUsersCard users={users} navigation={navigation}/>
         ) : (
           <View></View>
         )}
