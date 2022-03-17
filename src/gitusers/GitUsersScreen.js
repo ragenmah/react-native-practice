@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import {
   Text,
   View,
@@ -14,25 +15,13 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import GitUsersCard from './GitUsersCard';
+import {getGitUsers} from '../redux/actions/gituserActions';
 
 const GitUsersScreen = ({navigation}) => {
-  const [username, setName] = useState('');
-  const [isLoading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
-
-  const getGitUser = async () => {
-    Keyboard.dismiss();
-    setLoading(true);
-    try {
-      const response = await axios.get(`https://api.github.com/users/` + username);
-      // const json = await response.json();
-      setUsers(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-    setLoading(false);
-  };
-
+  const dispatch = useDispatch();
+  const {gitUser} = useSelector(state => state);
+  const getGiUser=username=> dispatch(getGitUsers(username));
+  
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -51,14 +40,16 @@ const GitUsersScreen = ({navigation}) => {
               style={styles.input}
               placeholderTextColor="#fff"
               onChangeText={text => {
-                setName(text);
+                gitUser.username=text;
               }}
-              value={username}
+              // value={username}
               maxLength={43}
             />
 
-            <TouchableOpacity onPress={getGitUser} style={styles.roundButton}>
-              {isLoading ? (
+            <TouchableOpacity
+              onPress={()=>{getGiUser(gitUser.username)}}
+              style={styles.roundButton}>
+              {gitUser.loading ? (
                 <ActivityIndicator />
               ) : (
                 <Icon name="account-search" color={'#000'} size={22} />
@@ -66,10 +57,11 @@ const GitUsersScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        {isLoading ? (
+
+        {gitUser.loading ? (
           <ActivityIndicator />
-        ) : users != '' ? (
-          <GitUsersCard users={users} navigation={navigation}/>
+        ) : gitUser.users != '' && gitUser.users != null ? (
+          <GitUsersCard users={gitUser.users} navigation={navigation} />
         ) : (
           <View></View>
         )}

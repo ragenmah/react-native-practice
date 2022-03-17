@@ -1,7 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import axios from 'axios';
 import moment from 'moment';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -12,30 +11,21 @@ import {
   Alert,
 } from 'react-native';
 import {Badge} from 'react-native-elements';
+import { useDispatch, useSelector } from 'react-redux';
+import {getUsersRepo} from '../redux/actions/gituserActions';
 
 const GitUsersRepo = () => {
-  const [repos, setRepos] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-
   const route = useRoute();
   const name = route.params.userName;
 
-  useEffect(() => {
-    getRepoList();
-  }, []);
+  const dispatch = useDispatch();
+  const {gitUser} = useSelector(state => state);
+  const getGiUserRepoList = username => dispatch(getUsersRepo(username));
 
-  const getRepoList = async () => {
-    setLoading(true);
-    try {
-      const {data} = await axios.get(
-        `https://api.github.com/users/${name}/repos`,
-      );
-      setRepos(data);
-    } catch (error) {
-      Alert.alert('Error', 'Something went wrong. Please try again');
-    }
-    setLoading(false);
-  };
+  useEffect(() => {
+    getGiUserRepoList(name);
+    console.log(getGiUserRepoList)
+  }, []);
 
   const renderItem = ({item}) => (
     <View style={styles.cardContainer}>
@@ -65,15 +55,14 @@ const GitUsersRepo = () => {
   );
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      {isLoading ? (
+      {gitUser.loading ? (
         <ActivityIndicator size={'large'} color="#222" />
       ) : (
         <View style={styles.flatListStyle}>
           <Text style={styles.userNameStyle}>{name}'s Repo</Text>
 
           <FlatList
-            // contentContainerStyle=
-            data={repos || []}
+            data={gitUser.repos || []}
             renderItem={renderItem}
             ListEmptyComponent={emptyView}
           />
